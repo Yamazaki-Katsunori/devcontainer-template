@@ -1,0 +1,41 @@
+{
+  "name": "For LocalStack And Devcontainer Template By Programming Language",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "mikestead.dotenv",
+        "Gruntfuggly.todo-tree",
+        "mechatroner.rainbow-csv",
+        "christian-kohler.path-intellisense",
+        "quicktype.quicktype",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "tomoyukim.vscode-mermaid-editor",
+        "bierner.markdown-mermaid",
+        "bierner.github-markdown-preview",
+        "shd101wyy.markdown-preview-enhanced",
+        "yzhang.markdown-all-in-one",
+        "oderwat.indent-rainbow",
+        "wix.vscode-import-cost",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "huizhou.githd",
+        "formulahendry.code-runner",
+        "apollographql.vscode-apollo",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "files.eol": "\n",
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "editor.tabSize": 4
+      }
+    }
+  }
+}

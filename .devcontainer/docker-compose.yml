@@ -1,0 +1,68 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_ENDPOINT: http://localstack:4566
+    depends_on:
+      - db
+      - webserver
+      - localstack
+    networks:
+      - devcontainer_template_network
+  db:
+    build:
+      context: ../
+      dockerfile: docker/database/Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - devcontainer_template_network
+
+  webserver:
+    build:
+      context: ../
+      dockerfile: docker/webserver/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    ports:
+      - "8080:80"
+    networks:
+      - devcontainer_template_network
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      SERVICES: s3,dynamodb
+      DEFAULT_REGION: ap-northeast-1
+      DEBUG: 1
+      DOCKER_HOST: unix:///var/run/docker.sock
+    volumes:
+      - localstack:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - devcontainer_template_network
+
+volumes:
+  db_data:
+  localstack:
+
+networks:
+  devcontainer_template_network:
+    driver: bridge
